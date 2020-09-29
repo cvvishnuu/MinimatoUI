@@ -1,0 +1,36 @@
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 5vh;
+    margin-right: 5vh;
+    min-height: 10vh;
+    background-color: rgb(27, 103, 189);
+}
+
+.logo{
+    margin-right: auto;
+    padding-left: 15px;
+    color: white;
+}
+
+.nav-links{
+    display: flex;
+    width: 20%;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+}
+
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    color: black;
+}
+
+
