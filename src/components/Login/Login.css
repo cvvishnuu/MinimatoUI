@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'Blacker Display Bold Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Blacker Display Bold Italic'), url('../../Blacker-Display-Bold-italic-trial.woff') format('woff');
+}
+
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    margin: auto;
+    margin-top: 10vh;
+    padding: 50px;
+    width: 17%;
+    height: 350px;
+    border: 0.5px solid rgb(238, 238, 238);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+  }
+
+.login-container:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.login-container h4 {
+  margin: 0 0 30px;
+  margin-left: 23px;
+  margin-bottom: 60px;
+  padding: 0;
+  color: rgb(175, 6, 6);
+  text-align: center;
+  font-family: 'Blacker Display Bold Italic';
+  font-size: x-large;
+}
+
+.login-container .user-box-login {
+  position: relative;     
+}
+
+.login-container .user-box-login input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: black;
+  margin-bottom: 40px;
+  border: none;
+  border-bottom: 1px solid rgb(182, 181, 181);
+  outline: none;
+  background: transparent;
+}
+
+
+.login-container .user-box-login label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 18px;
+  color:black;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-container .user-box-login input:focus ~ label,
+.login-container .user-box-login input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #0f0f0f;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.login-submit {
+  background-color: #073d5a;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-submit:hover {
+  font-size: 14px;
+}
+
+.login-container p a {
+  text-decoration: none;
+  color: rgb(1, 1, 226);
+}
+
+
+.login-container p a:hover {
+  text-decoration: underline;
+}  

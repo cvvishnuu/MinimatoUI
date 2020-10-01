@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router';
+import './Register.css';
+
 
 class Register extends React.Component {
     constructor() {
@@ -9,7 +12,8 @@ class Register extends React.Component {
             email: '',
             phoneNumber: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            isRegistered:'false'
         }
     }
 
@@ -34,74 +38,88 @@ class Register extends React.Component {
     }
    
     onSubmit=(event)=>{
+        event.preventDefault()
         const {canteenName,email,phoneNumber,password,confirmPassword} = this.state;
         if (password===confirmPassword){
-            console.log(password);
-            console.log(confirmPassword);
-            axios.post('http://localhost:5000/business/signup',{canteenName,email,phoneNumber,password})
+          axios.post('http://localhost:5000/business/signup',{
+                canteenName: canteenName,
+                email: email,
+                phoneNumber: phoneNumber,
+                password: password
+            })
             .then(res => {
-                if (res){
-                    alert('its working')
-                } else {
-                    alert('aint working');
+                if (res.data.confirm ==='true'){
+                    console.log('working');
+                    this.setState({isRegistered:'true'});
                 }
             })
-        }
+
+            .catch(err => alert(err))
+        } 
         else{
             alert('it doent match');
         }
-
-        
     }
     render() {
-        const {canteenName,email,phoneNumber,password,confirmPassword} = this.state;
+        if(this.state.isRegistered === 'true'){
+            return <Redirect to={{pathname :'/business/signin'}}/>
+       }
         return (
-            <div>
-                <h3>MiniMato</h3>
+            <div className = "register-container">
+                <h4>MINIMATO | REGISTER </h4>
                 <form onSubmit={this.onSubmit}>
-                    <input 
-                        type = "text" 
-                        name = "canteen_name" 
-                        placeholder = "Canteen Name" 
-                        required 
-                        onChange={this.onCanteenNameChange}
-                    /> <br/>
-                    <input 
-                        type = "email" 
-                        name = "email" 
-                        placeholder = "email" 
-                        onChange={this.onEmailChange}  
-                        required
-                    /> <br/>
-                    <input 
-                        type = "tel" 
-                        name = "phone_no" 
-                        placeholder = "Phone number" 
-                        required 
-                        onChange={this.onPhoneNumberChange}
-                    /> <br/>
-                    <input 
-                        type = "password" 
-                        name = "password" 
-                        placeholder = "Password" 
-                        required 
-                        onChange={this.onPasswordChange}
-                    /> <br/>
-                    <input 
-                        type = "password" 
-                        name = "confirm_password" 
-                        placeholder = "Confirm Password" 
-                        required 
-                        onChange={this.onConfirmPasswordChange}
-                    /> <br/>
-                    <input 
+                    <div className = "user-box-register">
+                        <input 
+                            type = "text" 
+                            name = "canteen_name"  
+                            required 
+                            onChange={this.onCanteenNameChange}
+                        />
+                        <label>Canteen Name</label>
+                    </div>
+                    <div className = "user-box-register">
+                        <input 
+                            type = "email" 
+                            name = "email"  
+                            onChange={this.onEmailChange}  
+                            required
+                        /> 
+                        <label>Email</label>
+                    </div>
+                    <div className = "user-box-register">
+                        <input 
+                            type = "tel" 
+                            name = "phone_no"  
+                            required 
+                            onChange={this.onPhoneNumberChange}
+                        /> 
+                        <label>Phone Number</label>
+                    </div>
+                    <div className = "user-box-register">
+                        <input 
+                            type = "password" 
+                            name = "password"  
+                            required 
+                            onChange={this.onPasswordChange}
+                        />
+                        <label>Password</label>
+                    </div>
+                    <div className = "user-box-register">
+                        <input 
+                            type = "password" 
+                            name = "confirm_password"  
+                            required 
+                            onChange={this.onConfirmPasswordChange}
+                        />
+                        <label>Confirm Password</label>
+                    </div>
+                    <input className = "register-submit" 
                         type='submit' 
                         value='submit' 
                     />
-                </form>   
+                </form>
+                <p style = {{position: "fixed", bottom: 75}}>Already Registered ? <a href = "http://localhost:3000/business/signin">Login</a></p>   
             </div>
-            
-            
         )
     }
 }

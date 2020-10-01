@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './Navigation.css';  
  
-class Navigation extends React.Component {
-   constructor() {
-      super();
+class Navigation extends Component {
+   constructor(props) {
+      super(props);
        this.state = {
            value:'',
        }
    }
+   
+   onRouteChange = () => {
+       if(window.location.pathname === "/business/signin"){
+        this.setState({value:" | LOGIN"})
+       } else {
+        this.setState({value:" | REGISTER"})
+       }
+    }
+   
     render() {
         return (
-            <nav>
-                <h4 className = 'logo'>MINIMATO{this.state.value} </h4>
+            <nav className = "navigation">
+               <h4 className = 'logo'>MINIMATO</h4>
                 <ul className = "nav-links">
-                    <li onClick={()=> this.setState({value:'| LOGIN'})}>
-                        <Link to = "/business/signin">LOGIN</Link>
+                    <li onClick={this.onRouteChange}>
+                        <Link to = "/business/signin" style = {{position:"fixed", right: 200, top: 20}}>LOGIN</Link>
                     </li>
-                    <li onClick = {()=> this.setState({value:'| REGISTER'})}> 
-                        <Link to = '/business/signup'>REGISTER</Link>
+                    <li onClick={this.onRouteChange} > 
+                        <Link to = '/business/signup' style = {{position:"fixed", top: 20, right: 50}}>REGISTER</Link>
                     </li>
                 </ul>
             </nav>
