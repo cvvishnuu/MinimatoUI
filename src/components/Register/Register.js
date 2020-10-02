@@ -67,7 +67,7 @@ class Register extends React.Component {
         return (
             <div className = "register-container">
                 <h4>MINIMATO | REGISTER </h4>
-                <form onSubmit={this.onSubmit}>
+                <form>
                     <div className = "user-box-register">
                         <input 
                             type = "text" 
@@ -113,7 +113,7 @@ class Register extends React.Component {
                         />
                         <label>Confirm Password</label>
                     </div>
-                    <input className = "register-submit" 
+                    <input onClick = {this.onSubmit} className = "register-submit" 
                         type='submit' 
                         value='submit' 
                     />
