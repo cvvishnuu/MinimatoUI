@@ -4,7 +4,7 @@ import Navigation from './components/Navigation/Navigation';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 
-const Rout =() =>{
+const Rout =() => {
     return ( 
         <Router >
             <div>

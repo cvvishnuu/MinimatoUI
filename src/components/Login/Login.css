@@ -39,6 +39,7 @@
 
 .login-container .user-box-login {
   position: relative;     
+  width: 15vw;
 }
 
 .login-container .user-box-login input {
@@ -52,7 +53,6 @@
   outline: none;
   background: transparent;
 }
-
 
 .login-container .user-box-login label {
   position: absolute;

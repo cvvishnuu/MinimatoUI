@@ -41,6 +41,7 @@
 
 .register-container .user-box-register {
     position: relative;
+    width: 23vw
 }
 
 .register-container .user-box-register input {

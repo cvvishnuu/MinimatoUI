@@ -49,8 +49,9 @@ class Register extends React.Component {
             })
             .then(res => {
                 if (res.data.confirm ==='true'){
-                    console.log('working');
                     this.setState({isRegistered:'true'});
+                } else {
+                    this.setState({isRegistered: 'false'});
                 }
             })
 
@@ -62,11 +63,13 @@ class Register extends React.Component {
     }
     render() {
         if(this.state.isRegistered === 'true'){
-            return <Redirect to={{pathname :'/business/signin'}}/>
-       }
+            return <Redirect to = {{pathname :'/business/signin'}}/>
+        } //else {
+    //        return <Redirect to = {{pathname : '/business/signup'}}/>
+    //    }
         return (
             <div className = "register-container">
-                <h4>MINIMATO | REGISTER </h4>
+                <h4>MiniMato | Register </h4>
                 <form>
                     <div className = "user-box-register">
                         <input 
