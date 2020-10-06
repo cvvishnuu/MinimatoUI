@@ -40,26 +40,38 @@ class Register extends React.Component {
     onSubmit=(event)=>{
         event.preventDefault()
         const {canteenName,email,phoneNumber,password,confirmPassword} = this.state;
-        if (password===confirmPassword){
-          axios.post('http://localhost:5000/business/signup',{
-                canteenName: canteenName,
-                email: email,
-                phoneNumber: phoneNumber,
-                password: password
-            })
-            .then(res => {
-                if (res.data.confirm ==='true'){
-                    this.setState({isRegistered:'true'});
+        try {
+            if(canteenName === '') {
+                alert("The input fields are empty");
+            } else if(email === '') {
+                alert("The input fields are empty");
+            } else if(phoneNumber === '') {
+                alert("The input fields are empty");
+            } else if(password === '') {
+                alert("The input fields are empty");
+            } else if(confirmPassword === '') {
+                alert("The input fields are empty");
+            } else {
+                if (password === confirmPassword){
+                    axios.post('http://localhost:5000/business/signup',{
+                        canteenName: canteenName,
+                        email: email,
+                        phoneNumber: phoneNumber,
+                        password: password
+                    })
+                    .then(res => {
+                        if (res.data.confirm ==='true'){
+                              this.setState({isRegistered:'true'});
+                        } 
+                    }).catch(err => alert('Sorry there has been an error. Please try again later.'))
                 } else {
-                    this.setState({isRegistered: 'false'});
+                      alert("Password and Confirm Password dosen't match");
                 }
-            })
-
-            .catch(err => alert(err))
-        } 
-        else{
-            alert('it doent match');
+            }
+        } catch (error) {
+            alert('Sorry there has been an error. Please try again later.');
         }
+        
     }
     render() {
         if(this.state.isRegistered === 'true'){

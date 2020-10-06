@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import './Login.css';
 import {Redirect} from 'react-router-dom';
+
+
 class Login extends React.Component {
     constructor() {
         super();
@@ -27,22 +29,32 @@ class Login extends React.Component {
     onSubmit = (event) => {
         event.preventDefault();
         const { email, password } = this.state;
-        axios.post('http://localhost:5000/business/login',{
-                email: email,
-                password: password
-        }).then(res => {
-            if(res.data.confirmation === 'true'){
-                this.setState({
-                    isAuthenticated: 'true'
-                })
-                console.log(this.state.isAuthenticated)
+        try {
+            if(email === '') {
+                alert("The input fields are empty");
+            } else if (password === '') {
+                alert("The input fields are empty");
             } else {
-                this.setState({
-                    isAuthenticated: 'false'
+                axios.post('http://localhost:5000/business/login',{
+                    email: email,
+                    password: password
+                }).then(res => {
+                    if(res.data.confirmation === 'true'){
+                        this.setState({
+                            isAuthenticated: 'true'
+                        })
+                    console.log("Authentication " + this.state.isAuthenticated)
+                    } else {
+                        this.setState({
+                            isAuthenticated: 'false'
+                        })
+                        console.log("Authentication " + this.state.isAuthenticated)
+                    }
                 })
-                console.log(this.state.isAuthenticated)
             }
-        })
+        } catch (error) {
+            alert("sorry there has been an error");
+        }
     }
 
     render() {
