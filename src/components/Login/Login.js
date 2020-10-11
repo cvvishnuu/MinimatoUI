@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import './Login.css';
-import {Redirect} from 'react-router-dom';
+import ProtectedRoutes from '../ProtectedRoutes';
+import { Redirect } from 'react-router';
 
 
 class Login extends React.Component {
@@ -10,7 +11,14 @@ class Login extends React.Component {
         this.state = {
             email : '',
             password: '',
-            isAuthenticated: 'false'
+            errorMessage: '',
+            isAuthenticated: 'false',
+            user: {
+                id: '',
+                name: '',
+                email: '',
+                phoneNumber : ''
+            }
         }
     }
 
@@ -38,18 +46,12 @@ class Login extends React.Component {
                 axios.post('http://localhost:5000/business/login',{
                     email: email,
                     password: password
+                }, {
+                    withCredentials: true
                 }).then(res => {
-                    if(res.data.confirmation === 'true'){
-                        this.setState({
-                            isAuthenticated: 'true'
-                        })
-                    console.log("Authentication " + this.state.isAuthenticated)
-                    } else {
-                        this.setState({
-                            isAuthenticated: 'false'
-                        })
-                        console.log("Authentication " + this.state.isAuthenticated)
-                    }
+                    console.log(res);
+                }).catch(err => {
+                    alert("sorry there has been an error")
                 })
             }
         } catch (error) {
@@ -58,13 +60,14 @@ class Login extends React.Component {
     }
 
     render() {
-
-        if(this.setState.isAuthenticated === 'true') {
-            return <Redirect to = {{pathname :'/business/signup'}}/>
-        } //else {
-        //     return <Redirect to = {{pathname :'/business/signin'}}/>
+        // if(this.state.isAuthenticated === 'true') {
+        //    return (
+        //        <div>
+        //             <ProtectedRoutes userObject = {this.state.user} />
+        //             <Redirect to = {{pathname :'/business/home'}} /> 
+        //        </div>
+        //    ) 
         // }
-
         return (
             <div className = 'login-container'>
                  <h4>MiniMato | Login </h4>
@@ -96,6 +99,7 @@ class Login extends React.Component {
                     />
                 </form>
                 <p style = {{position: "fixed", top: 470}}>New to MiniMato? <a href = "http://localhost:3000/business/signup">Register</a></p>
+                <p style = {{marginTop: "50px", color: "red"}}>{this.state.errorMessage}</p>
             </div>
             
         )

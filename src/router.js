@@ -3,17 +3,23 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
+import DefaultComponent from './components/DefaultComponent/Default';
 
-const Rout =() => {
+const Rout = () => {
     return ( 
         <Router >
             <div>
-                <Navigation/>
                 <Switch>
-                    <Route path='/business/signup'>
+                    <Route exact path = '/'>
+                        <Navigation/>
+                        <DefaultComponent />
+                    </Route>
+                    <Route path = '/business/signup'>
+                        <Navigation/>
                         <Register/>
                     </Route>
-                    <Route path="/business/signin">
+                    <Route path = "/business/signin">
+                        <Navigation/>
                         <Login/>
                     </Route>
                 </Switch>
@@ -23,3 +29,6 @@ const Rout =() => {
 }
  
 export default Rout;
+
+
+//

@@ -76,9 +76,7 @@ class Register extends React.Component {
     render() {
         if(this.state.isRegistered === 'true'){
             return <Redirect to = {{pathname :'/business/signin'}}/>
-        } //else {
-    //        return <Redirect to = {{pathname : '/business/signup'}}/>
-    //    }
+        }
         return (
             <div className = "register-container">
                 <h4>MiniMato | Register </h4>

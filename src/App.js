@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Rout from './router'
+import Rout from './router';
+
 
 class App extends Component {
 
