@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import './Login.css';
-import ProtectedRoutes from '../ProtectedRoutes';
 import { Redirect } from 'react-router';
 
 
@@ -12,16 +11,22 @@ class Login extends React.Component {
             email : '',
             password: '',
             errorMessage: '',
-            isAuthenticated: 'false',
-            user: {
-                id: '',
-                name: '',
-                email: '',
-                phoneNumber : ''
-            }
+            isAuthenticated: false
         }
     }
 
+    componentDidMount() {
+        this.checkStore();
+    }
+
+    checkStore() {
+        const store = JSON.parse(localStorage.getItem('Authorization'));
+        if(store) {
+            this.setState({
+                isAuthenticated: true
+            })
+        }
+    }
     onEmailChange = (event) => {
         this.setState({
             email: event.target.value
@@ -38,36 +43,36 @@ class Login extends React.Component {
         event.preventDefault();
         const { email, password } = this.state;
         try {
-            if(email === '') {
+            if(email === '' || password === '' ) {
                 alert("The input fields are empty");
-            } else if (password === '') {
-                alert("The input fields are empty");
-            } else {
+             } else {
                 axios.post('http://localhost:5000/business/login',{
                     email: email,
                     password: password
                 }, {
                     withCredentials: true
                 }).then(res => {
-                    console.log(res);
+                    if(!res.data.success){
+                        this.setState({errorMessage: "Incorrect Email or Password"})
+                    } else {
+                        const token = JSON.stringify(res.data.token);
+                        localStorage.setItem('Authorization', token);
+                        this.checkStore();
+                    }
                 }).catch(err => {
                     alert("sorry there has been an error")
                 })
             }
-        } catch (error) {
+        } 
+        catch (error) {
             alert("sorry there has been an error");
         }
     }
 
     render() {
-        // if(this.state.isAuthenticated === 'true') {
-        //    return (
-        //        <div>
-        //             <ProtectedRoutes userObject = {this.state.user} />
-        //             <Redirect to = {{pathname :'/business/home'}} /> 
-        //        </div>
-        //    ) 
-        // }
+        if(this.state.isAuthenticated) {
+            return <Redirect to = {{pathname :'/business/profile'}}/>
+        }
         return (
             <div className = 'login-container'>
                  <h4>MiniMato | Login </h4>
