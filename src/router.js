@@ -3,7 +3,11 @@ import {BrowserRouter as Router,Route,Switch, Redirect} from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
-import Profile from './components/Profile/Profile'
+import Profile from './components/Profile/Profile';
+import TodaysMenu from './components/TodaysMenu/TodaysMenu';
+import PrimaryMenu from './components/PrimaryMenu/PrimaryMenu';
+import IncomingOrder from './components/IncomingOrder/IncomingOrder';
+import OrderHistory from './components/OrderHistory/OrderHistory';
 
 
 const Rout = () => {
@@ -57,7 +61,11 @@ const Rout = () => {
                     {/* <Protectedroute path='/business/profile' Component = {profile} /> */}
                     {/* {localStorage.getItem('Authorization')?<Redirect to = '/business/profile'/>:<Redirect to = {{path:'/business/signin'}}/>}
                     {localStorage.getItem('Authorization')?<Route path='/business/profile' component={profile}/>:<Redirect to = {{path:'/business/signin'}}/>} */}
-                    <Route path = '/business/profile' render={()=> localStorage.getItem('Authorization')? <Profile/>: <Redirect to = '/business/signin'/>}/>
+                    <Route exact path = '/business/profile' render={()=> localStorage.getItem('Authorization')? <Profile/>: <Redirect to = '/business/signin'/>}/>
+                    <Route path = '/business/profile/todays_menu' render={()=> localStorage.getItem('Authorization')? <TodaysMenu/>: <Redirect to = '/business/signin'/>}/>
+                    <Route path = '/business/profile/primary_menu' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu/>: <Redirect to = '/business/signin'/>}/>
+                    <Route path = '/business/profile/incoming_orders' render={()=> localStorage.getItem('Authorization')? <IncomingOrder/>: <Redirect to = '/business/signin'/>}/>
+                    <Route path = '/business/profile/order_summary' render={()=> localStorage.getItem('Authorization')? <OrderHistory/>: <Redirect to = '/business/signin'/>}/>
                 </Switch>
             </div>
         </Router>

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import AuthenticatedNav from '../AuthenticatedNav/AuthenticatedNav';
 
 class Profile extends Component {
     constructor() {
         super();
         this.state = {
-            loggedOut: false,
             user: {
                 id: '',
                 name: '',
@@ -27,7 +27,7 @@ class Profile extends Component {
             
         })
         .then(res => { 
-            console.log(res.data.payload.name);
+            // console.log(res.data.payload.name);
             this.setState({
                 user: {
                     id: res.data.payload.id,
@@ -37,33 +37,25 @@ class Profile extends Component {
                     address: res.data.payload.address
                 }
             })
-            // console.log(this.state.user.id)
         })
         .catch((err)=>{
             console.log(err)
         })
     }
-
-    onLogout = () => {
-        localStorage.clear();
-        this.setState({loggedOut: true})
-    }
     
     render(){
-        if(this.state.loggedOut) {
-            return <Redirect to='/business/signin'/>
-        }
         return (
             <div>
-                <h1> this is profile component</h1>
-                <button onClick={this.onLogout}>logout</button>
+                <AuthenticatedNav />
+                <h1>MiniMato</h1>
+
                 
-                <h1>home page</h1>
+                {/* <h1>home page</h1>
                 <h1>{this.state.user.id}</h1>
                 <h1>{this.state.user.name}</h1>
                 <h1>{this.state.user.email}</h1>
                 <h1>{this.state.user.phoneNumber}</h1>
-                <h1>{this.state.user.address}</h1>
+                <h1>{this.state.user.address}</h1> */}
             </div>
         )
     }
