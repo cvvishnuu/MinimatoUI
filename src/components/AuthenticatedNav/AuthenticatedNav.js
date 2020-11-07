@@ -4,17 +4,17 @@ import './AuthenticatedNav.css';
 
 const AuthenticatedNav = () => {
 
-    const onLogout = (event) => {
+    const onLogout = () => {
         localStorage.clear()
     }
 
     return (
-        <div className = "navbar">
+        <div className = "navbar-cont">
             <Link to = '/business/profile'>
                 <button>HOME</button>
             </Link>
-            <div className = "dropdown">
-                <button className = "dropbtn">
+            <div className = "dropdown-cont">
+                <button className = "dropbtn-b">
                     MENU
                 </button>
                 <div className = "dropdown-content">
@@ -26,8 +26,8 @@ const AuthenticatedNav = () => {
                     </Link>
                 </div>
             </div>
-            <div className = "dropdown">
-                <button className = "dropbtn">
+            <div className = "dropdown-cont">
+                <button className = "dropbtn-b">
                     ORDERS
                 </button>
                 <div className = "dropdown-content">
@@ -39,8 +39,8 @@ const AuthenticatedNav = () => {
                     </Link>
                 </div>
             </div>
-            <div style = {{marginLeft: "auto", marginRight: "3vw"}} className = "dropdown">
-                <button className = "dropbtn">
+            <div style = {{marginLeft: "auto", marginRight: "3vw"}} className = "dropdown-cont">
+                <button className = "dropbtn-b">
                     SETTINGS
                 </button>
                 <div className = "dropdown-content">

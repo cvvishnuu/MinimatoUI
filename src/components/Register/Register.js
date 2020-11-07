@@ -56,7 +56,7 @@ class Register extends React.Component {
                     axios.post('http://localhost:5000/business/signup',{
                         canteenName: canteenName,
                         email: email,
-                        phoneNumber: phoneNumber,
+                        phoneNumber: phoneNumber,       
                         password: password
                     })
                     .then(res => {
