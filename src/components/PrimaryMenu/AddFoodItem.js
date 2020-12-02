@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from 'axios'
 import { Redirect, useHistory } from "react-router-dom";
 
-const AddFoodItem = () => {
+const AddFoodItem = (props) => {
+  const { catogory } = props
   let history = useHistory();
   const [user, setUser] = useState({
     food_name: "",
@@ -21,19 +22,19 @@ const AddFoodItem = () => {
   const onSubmit = async e => {
     e.preventDefault();
 
-    if(window.localStorage.getItem('menu')== null){
-      window.localStorage.setItem('menu','[]')
-    }
-    let arr=JSON.parse(window.localStorage.getItem('menu'))
+    // if(window.localStorage.getItem(catogory)== null){
+    //   window.localStorage.setItem('menu','[]')
+    // }
+    let arr=JSON.parse(window.localStorage.getItem(catogory))
     arr.push(user)
-    window.localStorage.setItem('menu',JSON.stringify(arr))
+    window.localStorage.setItem(catogory,JSON.stringify(arr))
     setFlag(true)
-    console.log(window.localStorage.getItem('menu'))
+    console.log(window.localStorage.getItem(catogory))
 
 
   };
   if(flag){
-    return <Redirect to='/business/profile/primary_menu' />
+    return <Redirect to = {`/business/profile/primary_menu/${catogory}`} />
   }else{
   return (
     

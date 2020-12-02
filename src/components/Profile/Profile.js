@@ -2,22 +2,31 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import AuthenticatedNav from '../AuthenticatedNav/AuthenticatedNav';
 import EditProfile from '../EditProfile/EditPtofile';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
+import { Modal, Button } from 'antd';
 import Form from 'react-bootstrap/Form';
+import FooterPagePro from '../Footer/Footer';
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import './Profile.css';
+import 'antd/dist/antd.css';
 
 
 class Profile extends Component  {
     constructor() {
         super();
         this.state = {
-            open: false,
             id: '',
             name: '',
             email: '',
             phoneNumber: '',
-            address: '',    
+            address: '',
+            editName: '',
+            editEmail: '',
+            editPhoneNumber: '',
+            editAddress: '', 
+            loading: false,
+            visible: false,  
+            selectedFile: 'null' 
         }
     }
     
@@ -46,34 +55,176 @@ class Profile extends Component  {
                 }))
             } else {
                 alert('Sorry there has been an error. Please try again later')
-            }
-            
+            }          
         })
         .catch((err)=>{
             console.log(err)
         })
     }
+
+    // componentDidUpdate(prevState){
+    //     if(prevState !==)
+    // }
+
 //To show the edit popup
-    onOpenTrueChange = (event) => {
+    showModal = () => {
         this.setState({
-            open: true 
+            visible: true,
+        });
+    };
+ //To handle Submit button   
+    handleOk = () => {
+        this.setState({ loading: true });
+        setTimeout(() => {
+            this.setState({ loading: false, visible: false });
+        }, 3000);
+    };
+
+//To handle cancel button
+    handleCancel = () => {
+        this.setState({ visible: false });
+    };
+
+    onEditNameChange = (event) => {
+        this.setState({
+            editName: event.target.value
         })
     }
- //To close the edit popup   
-    onOpenFalseChange = (event) => {
+
+    onEditEmailChange = (event) => {
         this.setState({
-            open: false
+            editEmail: event.target.value
+        })
+    }
+
+    onEditPhoneNumberChange = (event) => {
+        this.setState({
+            editPhoneNumber: event.target.value
+        })
+    }
+
+    onEditAddressChange = (event) => {
+        this.setState({
+            editAddress: event.target.value
+        })
+    }
+
+    profilePicHandler = () => {
+        const image = document.getElementById("profileImageInput");
+        image.click();
+    }
+
+    onInputHandler = (event) => {
+        console.log(event.target.files)
+        // setSelectedFile(event.target.files[0])
+        this.setState({
+            selectedFile: event.target.files[0]
         })
     }
     
+    onUploadHandler = (event) => {
+        const userInfo = JSON.parse(localStorage.getItem('User'));
+        const { id } = userInfo;
+        const token = JSON.parse(localStorage.getItem('Authorization'))
+        const fd = new FormData();
+        event.preventDefault();
+        fd.append('picture', this.state.selectedFile, this.state.selectedFile.name);
+        fd.append('id',id)                
+        // axios.post('http://localhost:5000/student/uploadImage', fd)
+        // .then(res => {
+        //     console.log(res);
+        // })
+        // setTimeout(function() {
+        //     // window.location.reload();
+        //     document.location.reload()
+        // }, 3000)
+    }
+
+    onUpdate = (event) => {
+        const { editName, editEmail, editPhoneNumber, editAddress } = this.state;
+        const userInfo = JSON.parse(localStorage.getItem('User'));
+        const { id } = userInfo;
+        const token = JSON.parse(localStorage.getItem('Authorization'))
+        try {
+            // if(name === '' || email === '' || phoneNumber === '' || address === '') {
+            //     alert("Please fill in all the fields.");
+            // } else {
+                axios.put('http://localhost:5000/business/editprofile', {
+                    id: id,
+                    name: editName,
+                    email: editEmail,
+                    phoneNo: editPhoneNumber,
+                    address: editAddress
+                }, 
+                {
+                    headers: {
+                        Authorization: token
+                    }
+                }).then(res => {
+                    if(res.data.success) {
+                        this.setState({
+                            id: res.data.payload.id,
+                            name: res.data.payload.name,
+                            email: res.data.payload.email,
+                            phoneNumber: res.data.payload.phone_no,
+                            address: res.data.payload.address 
+                        })
+                        localStorage.setItem("User", JSON.stringify({
+                            id: res.data.payload.id,
+                            name: res.data.payload.name,
+                            email: res.data.payload.email,
+                            phoneNumber: res.data.payload.phone_no,
+                            address: res.data.payload.address
+                        })) 
+                    } else {
+                        alert("The server has crashed. Please try again later");
+                    }         
+                })
+            // }
+        } catch (error) {
+            alert("There has been an erro, please try again later");
+        }
+    }
+    
     render(){
-        const { open } = this.state;
+        const { visible, loading } = this.state;
         return (
             <div>
                 <AuthenticatedNav />
                 <div className="profile-container">
-                    <Form style={{display:"flex", justifyContent:"space-around"}}>
-                        <div>
+                    <h1 style = {
+                            {
+                                fontFamily: "Lemonada, cursive",
+                                color: "red",
+                                display: "flex",
+                                justifyContent: "center"
+                            }
+                        }
+                    >
+                        Minimato
+                    </h1>
+                    <div className = "profileImagePosition">
+                        <Avatar size={200} icon={<UserOutlined />} onClick = {this.profilePicHandler} id = "antimage"/>
+                        <input 
+                            type = 'file' 
+                            name = 'picture' 
+                            id = "profileImageInput"
+                            style = {{display: "none"}}
+                            onChange = {this.onInputHandler}
+                        />
+                        <br />
+                        <button 
+                            className = "btn btn-danger mt-3" 
+                            onClick = {this.onUploadHandler}
+                            style = {{paddingLeft: "30px", paddingRight: "30px", marginLeft: "43px"}}
+                        >
+                                Upload
+                        </button>
+                    </div>
+                    
+                    <h3 style = {{display: "flex", justifyContent: "flex-end"}} className = "col-sm-4">Personal Details</h3>
+                    <Form style={{display:"flex", justifyContent:"space-around"}}>                       
+                        <div>                        
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>NAME</Form.Label>
                                     <h5>{this.state.name}</h5>
@@ -92,15 +243,41 @@ class Profile extends Component  {
                                 <Form.Label>ADDRESS</Form.Label>
                                 <h5>{this.state.address}</h5>
                             </Form.Group>
-                        </div>
+                        </div>                        
                     </Form>
-                    <button onClick = {this.onOpenTrueChange}>
-                            Edit
-                    </button>
-                    <Modal open = {open} onClose = {this.onOpenFalseChange} center>
-                        <EditProfile />
+                    <Button style = {{position: "fixed!important", left: "19.5vw"}} type = "primary" onClick = {this.showModal}>
+                        Edit
+                    </Button>
+                    <Modal
+                        visible = {visible}                        
+                        onOk = {this.handleOk}
+                        onCancel = {this.handleCancel}
+                        footer = {[
+                            <Button key = "back" onClick = {this.handleCancel}>
+                                cancel
+                            </Button>,
+                            <Button 
+                                key = "submit" 
+                                type = "primary" 
+                                loading = {loading} 
+                                onClick = {() => {
+                                    this.handleOk();
+                                    this.onUpdate();                                     
+                                }}
+                            >
+                                Update
+                            </Button>,
+                        ]}
+                    >
+                        <EditProfile 
+                            editName = {this.onEditNameChange} 
+                            editAddress = {this.onEditAddressChange} 
+                            editPhoneNumber = {this.onEditPhoneNumberChange}
+                            editEmail = {this.onEditEmailChange}                                 
+                        />
                     </Modal>
                 </div>
+                <FooterPagePro />
             </div>
         )
     }

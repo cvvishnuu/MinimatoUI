@@ -21,7 +21,7 @@ const AuthenticatedNav = () => {
                     <Link to = '/business/profile/todays_menu'>
                         <button>Today's Menu</button>
                     </Link>
-                    <Link to = '/business/profile/primary_menu'>
+                    <Link to = '/business/profile/primary_menu/starters'>
                         <button>Primary Menu</button>
                     </Link>
                 </div>

@@ -13,6 +13,7 @@ const EditUser = () => {
   });
   const [flag,setFlag]=useState(false);
   const[arr_index,setArr]=useState()
+  const[cato,setCato]=useState()
 
 
 
@@ -37,21 +38,24 @@ const EditUser = () => {
     //   {console.log("not updated properly")}})
    
 
-     let arr=JSON.parse(localStorage.getItem('menu'))
+     let arr=JSON.parse(localStorage.getItem(cato))
      arr[arr_index]=user
-     localStorage.setItem('menu',JSON.stringify(arr))
+     localStorage.setItem(cato,JSON.stringify(arr))
      setFlag(true)
 
   };
 
   const loadUser = async () => {
     // console.log(window.location.pathname.split('/')[3])
-    let food_name=window.location.pathname.split('/')[5]
+    let catogory=window.location.pathname.split('/')[4]
+    let food_name=window.location.pathname.split('/')[6]
+    console.log(catogory)
     console.log(food_name)
+    setCato(catogory)
     // 'const result = await axios.get(`http://localhost:5000/kiruba/edit/${food_name}`);
     // console.log(result.data)
-    let arr=JSON.parse(localStorage.getItem('menu'))
-                        console.log(typeof Object.keys(arr).length)
+    let arr=JSON.parse(localStorage.getItem(catogory))
+                        // console.log(typeof Object.keys(arr).length)
                         
                         if(Object.keys(arr).length >= 1){
                           const index = arr.findIndex(x => x.food_name === food_name );
@@ -62,7 +66,7 @@ const EditUser = () => {
     // setUser(result.data);
   };
   if(flag){
-    return <Redirect to='/business/profile/primary_menu'/>
+    return <Redirect to = {`/business/profile/primary_menu/${cato}`}/>
   }
   else{
   return (

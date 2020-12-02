@@ -1,85 +1,14 @@
-import React, { Component } from 'react';
-import Axios from 'axios';
+import React, {Component} from 'react';
 
 
-class EditProfile extends Component {
-    constructor() {
-        super();
-        this.state = {
-            name: '', 
-            email: '', 
-            phoneNumber: '', 
-            address: ''
-        }
+class EditProfile extends Component { 
+    constructor(props) {
+        super(props);
     }
-
-    onNameChange = (event) => {
-        this.setState({
-            name: event.target.value
-        })
-    }
-
-    onEmailChange = (event) => {
-        this.setState({
-            email: event.target.value
-        })
-    }
-
-    onPhoneNumberChange = (event) => {
-        this.setState({
-            phoneNumber: event.target.value
-        })
-    }
-
-    onAddressChange = (event) => {
-        this.setState({
-            address: event.target.value
-        })
-    }
-
-    onUpdate = (event) => {
-        event.preventDefault();
-        const { name, email, phoneNumber, address } = this.state;
-        const userInfo = JSON.parse(localStorage.getItem('User'));
-        const { id } = userInfo;
-        const token = JSON.parse(localStorage.getItem('Authorization'))
-        try {
-            // if(name === '' || email === '' || phoneNumber === '' || address === '') {
-            //     alert("Please fill in all the fields.");
-            // } else {
-                Axios.put('http://localhost:5000/business/editprofile', {
-                    id: id,
-                    name: name,
-                    email: email,
-                    phoneNo: phoneNumber,
-                    address: address
-                }, 
-                {
-                    headers: {
-                        Authorization: token
-                    }
-                }).then(res => {
-                    if(res.data.success) {
-                        localStorage.setItem("User", JSON.stringify({
-                            id: res.data.payload.id,
-                            name: res.data.payload.name,
-                            email: res.data.payload.email,
-                            phoneNumber: res.data.payload.phone_no,
-                            address: res.data.payload.address
-                        })) 
-                    } else {
-                        alert("The server has crashed. Please try again later");
-                    }         
-                })
-            // }
-        } catch (error) {
-            alert("There has been an erro, please try again later");
-        }
-    }
-
     render() {
         const userInfo = JSON.parse(localStorage.getItem('User'));
         const { name, email, phoneNumber, address } = userInfo;
+        const { editName, editAddress, editPhoneNumber, editEmail } = this.props;
         return(
             <div>
                 {/* <Form>
@@ -123,7 +52,7 @@ class EditProfile extends Component {
                             type = "text" 
                             name = "name" 
                             placeholder = {name}
-                            onChange = {this.onNameChange}                                 
+                            onChange = {editName}                                 
                         />
                     </div>
                     <div>
@@ -132,7 +61,7 @@ class EditProfile extends Component {
                             type = "email" 
                             name = "email" 
                             placeholder = {email}
-                            onChange = {this.onEmailChange}                                 
+                            onChange = {editEmail}                                 
                         />
                     </div>
                     <div>
@@ -141,7 +70,7 @@ class EditProfile extends Component {
                             type = "tel" 
                             name = "phoneNumber"
                             placeholder = {phoneNumber} 
-                            onChange = {this.onPhoneNumberChange}                                 
+                            onChange = {editPhoneNumber}                                 
                         />
                     </div>
                     <div>
@@ -150,16 +79,13 @@ class EditProfile extends Component {
                             type = "text" 
                             name = "address"
                             placeholder = {address} 
-                            onChange = {this.onAddressChange}                                 
+                            onChange = {editAddress}                                 
                         />
                     </div>
                 </form>
-                <button onClick = {this.onUpdate}>
-                    update
-                </button>
             </div>
         )
-    }
+    }   
 }
 
 

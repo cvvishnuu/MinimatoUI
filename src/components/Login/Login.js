@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './Login.css';
 import { Redirect } from 'react-router';
+import FooterPagePro from '../Footer/Footer';
 
 
 class Login extends React.Component {
@@ -74,39 +75,42 @@ class Login extends React.Component {
             return <Redirect to = {{pathname :'/business/profile'}}/>
         }
         return (
-            <div className = 'login-container'>
-                 <h4>MiniMato | Login </h4>
-                <form >
-                    <div className = "user-box-login">
+            <>
+                <div className = 'login-container col-3'>
+                    <h4>MiniMato | Login </h4>
+                    <form >
+                        <div className = "user-box-login">
+                            <input 
+                                type="email" 
+                                name="email"  
+                                required
+                                onChange={this.onEmailChange}
+                                style = {{paddingLeft: "20px!important"}}
+                            />
+                            <label>Email</label>
+                        </div>
+                        <div className = "user-box-login">
+                            <input 
+                                style = {{marginBottom: "25px"}} 
+                                type="password" 
+                                name="password" 
+                                required 
+                                onChange={this.onPasswordChange}
+                            />
+                            <label>Password</label>
+                        </div>
                         <input 
-                            type="email" 
-                            name="email"  
-                            required
-                            onChange={this.onEmailChange}
+                            className = "login-submit" 
+                            type="submit" 
+                            value="submit"
+                            onClick={this.onSubmit}
                         />
-                        <label>Email</label>
-                    </div>
-                     <div className = "user-box-login">
-                        <input 
-                            style = {{marginBottom: "25px"}} 
-                            type="password" 
-                            name="password" 
-                            required 
-                            onChange={this.onPasswordChange}
-                        />
-                        <label>Password</label>
-                     </div>
-                    <input 
-                        className = "login-submit" 
-                        type="submit" 
-                        value="submit"
-                        onClick={this.onSubmit}
-                    />
-                </form>
-                <p style = {{position: "fixed", top: 470}}>New to MiniMato? <a href = "http://localhost:3000/business/signup">Register</a></p>
-                <p style = {{marginTop: "50px", color: "red"}}>{this.state.errorMessage}</p>
-            </div>
-            
+                    </form>
+                    <p style = {{position: "fixed!important", top: 470}}>New to MiniMato? <a href = "http://localhost:3000/business/signup">Register</a></p>
+                    <p style = {{marginTop: "50px", color: "red"}}>{this.state.errorMessage}</p>
+                </div>
+                <FooterPagePro />
+            </>
         )
     }
 }

@@ -50,10 +50,15 @@ const Rout = () => {
          <Router >
              <div>
                 <Switch>
-                    {/* <Route exact path = '/'>
-                        <Navigation/>
-                        <DefaultComponent />
-                    </Route> */}
+                    <Route
+                        exact
+                        path="/"
+                        render={() => {
+                            return (                            
+                                <Redirect to="/business/signin" />                              
+                            )
+                        }}
+                    />
                     <Route path = '/business/signup'>
                         <Navigation/>
                         <Register/>
@@ -66,19 +71,51 @@ const Rout = () => {
                     {/* {localStorage.getItem('Authorization')?<Redirect to = '/business/profile'/>:<Redirect to = {{path:'/business/signin'}}/>}
                     {localStorage.getItem('Authorization')?<Route path='/business/profile' component={profile}/>:<Redirect to = {{path:'/business/signin'}}/>} */}
                     <Route exact path = '/business/profile' render={()=> localStorage.getItem('Authorization')? <Profile/>: <Redirect to = '/business/signin'/>}/>
+                   
+    {/* ------------------------------------------------------------------------------------------Todays Menu routes----------------------------------------------------------------------------------------------- */}
                     <Route path = '/business/profile/todays_menu' render={()=> localStorage.getItem('Authorization')? <TodaysMenu/>: <Redirect to = '/business/signin'/>}/>
-                    <Route exact path = '/business/profile/primary_menu' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu/>: <Redirect to = '/business/signin'/>}/>
-                    <Route path = '/business/profile/primary_menu/add' render={()=> localStorage.getItem('Authorization')? <AddFoodItem/> : <Redirect to = '/business/signin'/>}/>  
                     
-                    <Route path = '/business/profile/primary_menu/view/:food_name' render={()=> localStorage.getItem('Authorization')? <ViewFoodItem/> : <Redirect to = '/business/signin'/>}/>  
-                    <Route path = '/business/profile/primary_menu/edit/:food_name' render={()=> localStorage.getItem('Authorization')? <EditFoodItem/> : <Redirect to = '/business/signin'/>}/>  
-
-                    {/* <Route exact path="/view/:food_name" component={User} /> */}
+    {/* ------------------------------------------------------------------------------------------Primary Menu routes------------------------------------------------------------------------------------------------------------- */}
+               
+               
+               {/* --------------------------------------------------------------------------Starters--------------------------------------------------------------------- */}
+               
+                    <Route exact path = '/business/profile/primary_menu/starters' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu catogory = "starters" />: <Redirect to = '/business/signin'/>}/>
+                    <Route path = '/business/profile/primary_menu/starters/add' render={()=> localStorage.getItem('Authorization')? <AddFoodItem catogory = "starters"/> : <Redirect to = '/business/signin'/>}/>  
+                    <Route path = '/business/profile/primary_menu/:catogory/view/:food_name' render={()=> localStorage.getItem('Authorization')? <ViewFoodItem/> : <Redirect to = '/business/signin'/>}/>  
+                    <Route path = '/business/profile/primary_menu/:catogory/edit/:food_name' render={()=> localStorage.getItem('Authorization')? <EditFoodItem /> : <Redirect to = '/business/signin'/>}/>                      
+                   
+            {/* --------------------------------------------------------------------------main course--------------------------------------------------------------------- */}
+                    <Route exact path = '/business/profile/primary_menu/maincourse' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu catogory = "maincourse" />: <Redirect to = '/business/signin'/>}/>
+                    <Route path = '/business/profile/primary_menu/maincourse/add' render={()=> localStorage.getItem('Authorization')? <AddFoodItem catogory = "maincourse"/> : <Redirect to = '/business/signin'/>}/>  
+                    <Route path = '/business/profile/primary_menu/:catogory/view/:food_name' render={()=> localStorage.getItem('Authorization')? <ViewFoodItem/> : <Redirect to = '/business/signin'/>}/>  
+                    <Route path = '/business/profile/primary_menu/:catogory/edit/:food_name' render={()=> localStorage.getItem('Authorization')? <EditFoodItem /> : <Redirect to = '/business/signin'/>}/>                      
                     
-                    
-                    
+            {/* --------------------------------------------------------------------------deserts--------------------------------------------------------------------- */}
+                    <Route exact path = '/business/profile/primary_menu/deserts' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu catogory = "deserts" />: <Redirect to = '/business/signin'/>}/>
+                    <Route path = '/business/profile/primary_menu/deserts/add' render={()=> localStorage.getItem('Authorization')? <AddFoodItem catogory = "deserts"/> : <Redirect to = '/business/signin'/>}/>  
+                    <Route path = '/business/profile/primary_menu/:catogory/view/:food_name' render={()=> localStorage.getItem('Authorization')? <ViewFoodItem/> : <Redirect to = '/business/signin'/>}/>  
+                    <Route path = '/business/profile/primary_menu/:catogory/edit/:food_name' render={()=> localStorage.getItem('Authorization')? <EditFoodItem /> : <Redirect to = '/business/signin'/>}/>                      
+            
+            {/* --------------------------------------------------------------------------drinks--------------------------------------------------------------------- */}
+            <Route exact path = '/business/profile/primary_menu/drinks' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu catogory = "drinks" />: <Redirect to = '/business/signin'/>}/>
+                    <Route path = '/business/profile/primary_menu/drinks/add' render={()=> localStorage.getItem('Authorization')? <AddFoodItem catogory = "drinks"/> : <Redirect to = '/business/signin'/>}/>  
+                    <Route path = '/business/profile/primary_menu/:catogory/view/:food_name' render={()=> localStorage.getItem('Authorization')? <ViewFoodItem/> : <Redirect to = '/business/signin'/>}/>  
+                    <Route path = '/business/profile/primary_menu/:catogory/edit/:food_name' render={()=> localStorage.getItem('Authorization')? <EditFoodItem /> : <Redirect to = '/business/signin'/>}/>                     
+   
+   
+   {/* ------------------------------------------------------------------------------------------incomming orders routes ---------------------------------------------------------------------------------------------*/}
                     <Route path = '/business/profile/incoming_orders' render={()=> localStorage.getItem('Authorization')? <IncomingOrder/>: <Redirect to = '/business/signin'/>}/>
+                    
+                    
+                    
+     {/* ------------------------------------------------------------------------------------------Order Summary routes ---------------------------------------------------------------------------------------------*/}
                     <Route path = '/business/profile/order_summary' render={()=> localStorage.getItem('Authorization')? <OrderHistory/>: <Redirect to = '/business/signin'/>}/>
+                    
+
+
+                   
+
                 </Switch>
             </div>
         </Router>

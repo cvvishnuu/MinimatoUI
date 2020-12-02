@@ -7,29 +7,31 @@ const ViewFoodItem = () => {
     food_name: "",
     quantity: "",
     price: "",
-    
   });
+  const [cato,setCato]=useState()
   const { id } = useParams();
   useEffect(() => {
     loadUser();
   }, []);
+  
+  
   const loadUser = async () => {
-    const food_nam=window.location.pathname.split('/')[5]
+    const catogory = window.location.pathname.split('/')[4]
+    const food_nam = window.location.pathname.split('/')[6]
+    setCato(catogory)
+    console.log(catogory)
     console.log(food_nam)
-    
-    let arr=JSON.parse(localStorage.getItem('menu'))
-    
+    let arr = JSON.parse(localStorage.getItem(catogory))
     for(let i=0;i<Object.keys(arr).length;i++){
        if(arr[i].food_name===food_nam ){
          setUser(arr[i])
          break;
       }
     }
-    
   };
   return (
     <div className="container py-4">
-      <Link className="btn btn-primary" to="/business/profile/primary_menu">
+      <Link className = "btn btn-primary" to = {`/business/profile/primary_menu/${cato}`}>
         back to Home
       </Link>
       <h1 className="display-4">Food</h1>
