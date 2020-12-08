@@ -82,7 +82,10 @@
   color: white;
   padding: 10px 32px;
   text-decoration: none;
-  margin: 4px 2px;
+  position: absolute !important;
+  top: 450 !important;
+  margin: 4px 0px;
+  margin-bottom: 10px;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -96,7 +99,10 @@
   color: rgb(1, 1, 226);
 }
 
+/* .login-container p {
+  margin-top: 80px !important;
+} */
 
 .login-container p a:hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }  

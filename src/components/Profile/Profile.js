@@ -26,25 +26,25 @@ class Profile extends Component  {
             editAddress: '', 
             loading: false,
             visible: false,  
-            selectedFile: 'null' 
+            selectedFile: 'null',
+            imageRecieved: false 
         }
     }
     
     componentDidMount(){
         const token = JSON.parse(localStorage.getItem('Authorization'))
-        axios.get('http://localhost:5000/business/profile', {
-            headers : {
-                Authorization: token
-            },
-        })
-        .then(res => { 
-            if(res.data.success) {
+        const reqOne = axios.get('http://localhost:5000/business/profile', {headers : {Authorization: token}});
+        const reqTwo = axios.get('http://localhost:5000/business/getImage', {headers : {Authorization: token}});
+        axios.all([reqOne, reqTwo]).then(axios.spread((...responses) => {
+            const responseOne = responses[0]
+            const responseTwo = responses[1]
+            if(responseOne.data.success) {
                 this.setState({
-                    id: res.data.payload.id,
-                    name: res.data.payload.name,
-                    email: res.data.payload.email,
-                    phoneNumber: res.data.payload.phone_no,
-                    address: res.data.payload.address 
+                    id: responseOne.data.payload.id,
+                    name: responseOne.data.payload.name,
+                    email: responseOne.data.payload.email,
+                    phoneNumber: responseOne.data.payload.phone_no,
+                    address: responseOne.data.payload.address 
                 })
                 localStorage.setItem('User', JSON.stringify({
                     id: this.state.id,
@@ -55,12 +55,17 @@ class Profile extends Component  {
                 }))
             } else {
                 alert('Sorry there has been an error. Please try again later')
-            }          
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    }
+            }    
+            if(responseTwo.data.success) {                
+                this.setState({
+                    imageRecieved: responseTwo.data.payload.url
+                })
+            }
+        }))
+        // .catch((err)=>{
+        //     console.log(err)
+        // })
+        }
 
     // componentDidUpdate(prevState){
     //     if(prevState !==)
@@ -128,8 +133,7 @@ class Profile extends Component  {
         const token = JSON.parse(localStorage.getItem('Authorization'))
         const fd = new FormData();
         event.preventDefault();
-        fd.append('picture', this.state.selectedFile, this.state.selectedFile.name);
-        fd.append('id',id)                
+        fd.append('picture', this.state.selectedFile);                
         // axios.post('http://localhost:5000/student/uploadImage', fd)
         // .then(res => {
         //     console.log(res);
@@ -138,6 +142,15 @@ class Profile extends Component  {
         //     // window.location.reload();
         //     document.location.reload()
         // }, 3000)
+        axios({
+            method:'post',
+            url: 'http://localhost:5000/business/uploadImage',
+            data: fd,            
+            headers: { 
+                'Authorization': token,
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     }
 
     onUpdate = (event) => {
@@ -204,7 +217,17 @@ class Profile extends Component  {
                         Minimato
                     </h1>
                     <div className = "profileImagePosition">
+                    {
+                        (this.state.imageRecieved)?
+                        <img src = {`http://localhost:5000${this.state.imageRecieved}`} alt = "profile picture" style = {{
+                            height: "200px",
+                            width: "200px",
+                            borderRadius: "50%"
+                        }}/>
+                        :                        
                         <Avatar size={200} icon={<UserOutlined />} onClick = {this.profilePicHandler} id = "antimage"/>
+                    }
+                        
                         <input 
                             type = 'file' 
                             name = 'picture' 

@@ -98,7 +98,7 @@ const Rout = () => {
                     <Route path = '/business/profile/primary_menu/:catogory/edit/:food_name' render={()=> localStorage.getItem('Authorization')? <EditFoodItem /> : <Redirect to = '/business/signin'/>}/>                      
             
             {/* --------------------------------------------------------------------------drinks--------------------------------------------------------------------- */}
-            <Route exact path = '/business/profile/primary_menu/drinks' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu catogory = "drinks" />: <Redirect to = '/business/signin'/>}/>
+                    <Route exact path = '/business/profile/primary_menu/drinks' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu catogory = "drinks" />: <Redirect to = '/business/signin'/>}/>
                     <Route path = '/business/profile/primary_menu/drinks/add' render={()=> localStorage.getItem('Authorization')? <AddFoodItem catogory = "drinks"/> : <Redirect to = '/business/signin'/>}/>  
                     <Route path = '/business/profile/primary_menu/:catogory/view/:food_name' render={()=> localStorage.getItem('Authorization')? <ViewFoodItem/> : <Redirect to = '/business/signin'/>}/>  
                     <Route path = '/business/profile/primary_menu/:catogory/edit/:food_name' render={()=> localStorage.getItem('Authorization')? <EditFoodItem /> : <Redirect to = '/business/signin'/>}/>                     

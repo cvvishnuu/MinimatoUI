@@ -80,9 +80,9 @@ class Register extends React.Component {
         }
         return (
             <>
-                <div className = "register-container">
-                    <h4>MiniMato | Register </h4>
-                    <form>
+                <div className = "register-container col-3 h-50">
+                    <h4>MiniMato | Register</h4>
+                    <form className = "ml-3">
                         <div className = "user-box-register">
                             <input 
                                 type = "text" 
@@ -133,7 +133,7 @@ class Register extends React.Component {
                             value='submit' 
                         />
                     </form>
-                    <p style = {{position: "fixed!important", bottom: 75}}>Already Registered ? <a href = "http://localhost:3000/business/signin">Login</a></p>   
+                    <p style = {{position: "fixed!important", bottom: 75}} className = "ml-3">Already Registered ? <a href = "http://localhost:3000/business/signin">Login</a></p>   
                 </div>
                 <FooterPagePro />
             </>    

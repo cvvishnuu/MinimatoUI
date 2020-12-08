@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
 class Home extends Component {
@@ -62,9 +61,11 @@ class Home extends Component {
               <tr>
                 <th scope="col">S.no</th>
                 <th scope="col">Food Name</th>
-                <th scope="col">Quantity</th>
+                {/* <th scope="col">Quantity</th> */}
                 <th scope="col">Price</th>
+                <th>Availability</th>
                 <th>Action</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -72,12 +73,11 @@ class Home extends Component {
                 <tr key={index +1}>
                   <th scope="row">{index +1}</th>
                   <td>{user.food_name}</td>
-                  <td>{user.quantity}</td>
+                  {/* <td>{user.quantity}</td> */}
                   <td>{user.price}</td>
-                  <td>
-                    <Link className = "btn btn-primary mr-2" to = {`/business/profile/primary_menu/${catogory}/view/${user.food_name}`}>
-                      View  
-                    </Link>
+                  <td>{user.status}</td>
+
+                  <td>                                  
                     <Link
                       className="btn btn-outline-primary mr-2"
                       to={`/business/profile/primary_menu/${catogory}/edit/${user.food_name }`}

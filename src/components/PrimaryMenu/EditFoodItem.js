@@ -7,9 +7,9 @@ const EditUser = () => {
   const { food_namee,quantity,price } = useParams();
   const [user, setUser] = useState({
     food_name: "",
-    quantity: "",
+    // quantity: "",
     price: "",
-    
+    status: "true",   
   });
   const [flag,setFlag]=useState(false);
   const[arr_index,setArr]=useState()
@@ -84,7 +84,7 @@ const EditUser = () => {
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <input
               type="number"
               className="form-control form-control-lg"
@@ -93,7 +93,7 @@ const EditUser = () => {
               value={quantity}
               onChange={e => onInputChange(e)}
             />
-          </div>
+          </div> */}
           <div className="form-group">
             <input
               type="number"
@@ -104,8 +104,21 @@ const EditUser = () => {
               onChange={e => onInputChange(e)}
             />
           </div>
-          
-          <button className="btn btn-warning btn-block">Update </button>
+          {/* {
+            (user.status === "true")? 
+            <>
+              <label className="radio"><input type="radio" value="true" name={`status`} onChange = {e => onInputChange(e)} defaultChecked/>Available</label>
+              <label className="radio"><input type="radio" value="false" name={`status`} onChange = {e => onInputChange(e)}/>Unavailable</label>
+            </>
+            :
+            <>
+              <label className="radio"><input type="radio" value="true" name={`status`} onChange = {e => onInputChange(e)}/>Available</label>
+              <label className="radio"><input type="radio" value="false" name={`status`} onChange = {e => onInputChange(e)}/>Unavailable</label>
+            </> 
+          } */}
+          <label className="radio"><input type="radio" value="true" name={`status`} onChange = {e => onInputChange(e)}/>Available</label>
+          <label className="radio"><input type="radio" value="false" name={`status`} onChange = {e => onInputChange(e)}/>Unavailable</label>
+          <button className="btn btn-warning btn-block">Update</button>
         </form>
       </div>
     </div>

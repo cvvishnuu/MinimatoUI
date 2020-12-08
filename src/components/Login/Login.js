@@ -76,9 +76,9 @@ class Login extends React.Component {
         }
         return (
             <>
-                <div className = 'login-container col-3'>
-                    <h4>MiniMato | Login </h4>
-                    <form >
+                <div className = 'login-container col-3 h-50'>
+                    <h4>MiniMato | Login</h4>
+                    <form className = "ml-3 mt-4">
                         <div className = "user-box-login">
                             <input 
                                 type="email" 
@@ -106,7 +106,7 @@ class Login extends React.Component {
                             onClick={this.onSubmit}
                         />
                     </form>
-                    <p style = {{position: "fixed!important", top: 470}}>New to MiniMato? <a href = "http://localhost:3000/business/signup">Register</a></p>
+                    <p style = {{position: "fixed!important", top: 470}} className = "ml-3 mt-5">New to MiniMato? <a href = "http://localhost:3000/business/signup">Register</a></p>
                     <p style = {{marginTop: "50px", color: "red"}}>{this.state.errorMessage}</p>
                 </div>
                 <FooterPagePro />

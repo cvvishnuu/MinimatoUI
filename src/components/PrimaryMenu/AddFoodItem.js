@@ -7,13 +7,14 @@ const AddFoodItem = (props) => {
   let history = useHistory();
   const [user, setUser] = useState({
     food_name: "",
-    quantity:"",
+    // quantity:"",
     price:"",
+    status: "true"
   });
  
   const [flag,setFlag]=useState(false)
 
-  const { food_name, quantity,price} = user;
+  const { food_name, price, status} = user;
   const onInputChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -54,7 +55,7 @@ const AddFoodItem = (props) => {
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
             <input
               type="number"
               className="form-control form-control-lg"
@@ -63,7 +64,7 @@ const AddFoodItem = (props) => {
               value={quantity}
               onChange={e => onInputChange(e)}
             />
-          </div>
+          </div> */}
           <div className="form-group">
             <input
               type="number"
@@ -75,8 +76,6 @@ const AddFoodItem = (props) => {
               onChange={e => onInputChange(e)}
             />
           </div>
-          
-          
           <button className="btn btn-primary btn-block">Add Food Item</button>
         </form>
       </div>
