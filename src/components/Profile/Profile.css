@@ -10,3 +10,7 @@
     position: fixed !important;
     padding: 10px;
 }
+
+.profileImagePic:hover {
+    cursor: pointer;
+}

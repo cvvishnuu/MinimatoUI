@@ -219,11 +219,14 @@ class Profile extends Component  {
                     <div className = "profileImagePosition">
                     {
                         (this.state.imageRecieved)?
-                        <img src = {`http://localhost:5000${this.state.imageRecieved}`} alt = "profile picture" style = {{
-                            height: "200px",
-                            width: "200px",
-                            borderRadius: "50%"
-                        }}/>
+                        <>
+                            <img className = "profileImagePic" src = {`http://localhost:5000${this.state.imageRecieved}`} alt = "profile picture" style = {{
+                                height: "200px",
+                                width: "200px",
+                                borderRadius: "50%"
+                            }}/>
+                            <br/>
+                        </>
                         :                        
                         <Avatar size={200} icon={<UserOutlined />} onClick = {this.profilePicHandler} id = "antimage"/>
                     }
