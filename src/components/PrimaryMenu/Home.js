@@ -42,8 +42,9 @@ class Home extends Component {
       window.localStorage.setItem('drinks','[]')
     } 
     let arr = JSON.parse(window.localStorage.getItem(`${catogory}`))
+    const resultArr = arr.map(({image, ...rest}) => ({...rest}));
     this.setState({
-      users: arr
+      users: resultArr
     })
   };
   
@@ -61,7 +62,7 @@ class Home extends Component {
               <tr>
                 <th scope="col">S.no</th>
                 <th scope="col">Food Name</th>
-                {/* <th scope="col">Quantity</th> */}
+                <th scope="col">Image</th>
                 <th scope="col">Price</th>
                 <th>Availability</th>
                 <th>Action</th>
@@ -73,10 +74,14 @@ class Home extends Component {
                 <tr key={index +1}>
                   <th scope="row">{index +1}</th>
                   <td>{user.food_name}</td>
-                  {/* <td>{user.quantity}</td> */}
-                  <td>{user.price}</td>
+                  <td>
+                    <img className = "profileImagePic" src = {user.imageURL} alt = "Food picture" style = {{
+                          height: "100px",
+                          width: "100px",
+                      }}/>
+                  </td>
+                  <td>${user.price}</td>
                   <td>{user.status}</td>
-
                   <td>                                  
                     <Link
                       className="btn btn-outline-primary mr-2"

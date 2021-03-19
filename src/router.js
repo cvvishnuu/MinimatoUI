@@ -47,7 +47,7 @@ const Rout = () => {
         //     )
         // }
     return ( 
-         <Router >
+         <Router>
              <div>
                 <Switch>
                     <Route
@@ -62,7 +62,7 @@ const Rout = () => {
                     <Route path = '/business/signup'>
                         <Navigation/>
                         <Register/>
-                    </Route>
+                    </Route>        
                     <Route path = "/business/signin">
                         <Navigation/>
                         <Login/>
@@ -78,7 +78,7 @@ const Rout = () => {
     {/* ------------------------------------------------------------------------------------------Primary Menu routes------------------------------------------------------------------------------------------------------------- */}
                
                
-               {/* --------------------------------------------------------------------------Starters--------------------------------------------------------------------- */}
+            {/* --------------------------------------------------------------------------Starters--------------------------------------------------------------------- */}
                
                     <Route exact path = '/business/profile/primary_menu/starters' render={()=> localStorage.getItem('Authorization')? <PrimaryMenu catogory = "starters" />: <Redirect to = '/business/signin'/>}/>
                     <Route path = '/business/profile/primary_menu/starters/add' render={()=> localStorage.getItem('Authorization')? <AddFoodItem catogory = "starters"/> : <Redirect to = '/business/signin'/>}/>  
@@ -104,12 +104,12 @@ const Rout = () => {
                     <Route path = '/business/profile/primary_menu/:catogory/edit/:food_name' render={()=> localStorage.getItem('Authorization')? <EditFoodItem /> : <Redirect to = '/business/signin'/>}/>                     
    
    
-   {/* ------------------------------------------------------------------------------------------incomming orders routes ---------------------------------------------------------------------------------------------*/}
+    {/* ------------------------------------------------------------------------------------------incomming orders routes ---------------------------------------------------------------------------------------------*/}
                     <Route path = '/business/profile/incoming_orders' render={()=> localStorage.getItem('Authorization')? <IncomingOrder/>: <Redirect to = '/business/signin'/>}/>
                     
                     
                     
-     {/* ------------------------------------------------------------------------------------------Order Summary routes ---------------------------------------------------------------------------------------------*/}
+    {/* ------------------------------------------------------------------------------------------Order Summary routes ---------------------------------------------------------------------------------------------*/}
                     <Route path = '/business/profile/order_summary' render={()=> localStorage.getItem('Authorization')? <OrderHistory/>: <Redirect to = '/business/signin'/>}/>
                     
 

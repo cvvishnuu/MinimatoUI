@@ -128,12 +128,13 @@ class Profile extends Component  {
     }
     
     onUploadHandler = (event) => {
-        const userInfo = JSON.parse(localStorage.getItem('User'));
-        const { id } = userInfo;
         const token = JSON.parse(localStorage.getItem('Authorization'))
         const fd = new FormData();
         event.preventDefault();
-        fd.append('picture', this.state.selectedFile);                
+        fd.append('picture', this.state.selectedFile); 
+        for (let pair of fd.entries()) {
+            console.log(pair); 
+        }            
         // axios.post('http://localhost:5000/student/uploadImage', fd)
         // .then(res => {
         //     console.log(res);
@@ -199,7 +200,7 @@ class Profile extends Component  {
         }
     }
     
-    render(){
+    render() {
         const { visible, loading } = this.state;
         return (
             <div>
@@ -214,7 +215,7 @@ class Profile extends Component  {
                             }
                         }
                     >
-                        Minimato
+                        MiniMato
                     </h1>
                     <div className = "profileImagePosition">
                     {
@@ -229,8 +230,7 @@ class Profile extends Component  {
                         </>
                         :                        
                         <Avatar size={200} icon={<UserOutlined />} onClick = {this.profilePicHandler} id = "antimage"/>
-                    }
-                        
+                    }                        
                         <input 
                             type = 'file' 
                             name = 'picture' 
